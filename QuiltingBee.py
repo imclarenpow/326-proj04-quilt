@@ -16,16 +16,18 @@ def inputHandler():
     global lines, guiClosed
     print("Syntax: 'scale r g b'\nUse ctrl+c or 'exit' to close input.\nOr use 'gui' to input using the gui")
     try:
-        while not guiClosed:
-            line = input()
-            if(syntaxHandler(line)):
-                lines.append(line)
-                print("Added!")
-            elif(line.upper()=="GUI"):
-                gui()
-            elif(line.upper()=="EXIT"):
-                break
-            
+        try:
+            while not guiClosed:
+                line = input()
+                if(syntaxHandler(line)):
+                    lines.append(line)
+                    print("Added!")
+                elif(line.upper()=="GUI"):
+                    gui()
+                elif(line.upper()=="EXIT"):
+                    break
+        except EOFError:
+            print("\nEnd of File")
     except KeyboardInterrupt:
         print("\nInterrupted by user")
 # method to handle errors in input as to not add them to the data
@@ -101,9 +103,9 @@ def drawSquare(x, y, size, depth):
     global scale, rVal, gVal, bVal
     if(depth>=maxDepth):
         return
-    r = rVal[depth]/255
-    g = gVal[depth]/255
-    b = bVal[depth]/255
+    r = rVal[depth]/255.0
+    g = gVal[depth]/255.0
+    b = bVal[depth]/255.0
     size = size * scale[depth]
     cx = x - size/2
     cy = y - size/2

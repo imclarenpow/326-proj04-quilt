@@ -1,6 +1,9 @@
 # Quilting Bee
 ## Using Quilting Bee
 - run ```pip install -r dependencies.txt``` in terminal. These dependencies have been tested on Linux and Windows.
+    - if there are issues with this, you may need to install with admin privileges the following packages:
+    - ```pip install tkcolorpicker```
+    - ```pip install matplotlib```
 - run ```py QuiltingBee.py``` in terminal.
 ## Notes on the Implementation
 - This version of Quilting Bee gives you the option to enter your wanted scale and RGB values in terminal or to use the 'GUI' command to get a better colour selector.
