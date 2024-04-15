@@ -1,4 +1,11 @@
 # Quilting Bee
+## Using Quilting Bee
+- run ```pip install -r dependencies.txt``` in terminal. These dependencies have been tested on Linux and Windows.
+- run ```py QuiltingBee.py``` in terminal.
+## Notes on the Implementation
+- This version of Quilting Bee gives you the option to enter your wanted scale and RGB values in terminal or to use the 'GUI' command to get a better colour selector.
+- Further more it utilises a recursive method to draw squares on the corners of all of the squares.
+## Intro
 The YGQA(A-M) are considering a new design to welcome the Century of the Anchovy (a few years late).
 "We should start with a big central square"
 “And then other, smaller squares of a different colour, centred at its corners”
