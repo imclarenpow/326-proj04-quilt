@@ -1,3 +1,4 @@
+import sys
 import matplotlib.pyplot as plt
 import tkinter as tk
 from tkcolorpicker import askcolor
@@ -106,20 +107,30 @@ def drawSquare(x, y, size, depth):
     r = rVal[depth]/255.0
     g = gVal[depth]/255.0
     b = bVal[depth]/255.0
-    size = size * scale[depth]
-    cx = x - size/2
-    cy = y - size/2
-    plt.gca().add_patch(plt.Rectangle((cx, cy), size, size, fill=True, color=(r,g,b)))
+    sz = size * scale[depth]
+    cx = x - sz/2
+    cy = y - sz/2
+    plt.gca().add_patch(plt.Rectangle((cx, cy), sz, sz, fill=True, color=(r,g,b)))
     # sizing for smaller squares
-    sqrs = size/2
-    drawSquare(x-sqrs,y-sqrs,sqrs,depth+1)  # top left corner
-    drawSquare(x-sqrs,y+sqrs,sqrs,depth+1)  # bottom left corner
-    drawSquare(x+sqrs,y-sqrs,sqrs,depth+1)  # top right corner
-    drawSquare(x+sqrs,y+sqrs,sqrs,depth+1)  # bottom right corner
+    sqrs = sz/2
+    drawSquare(x-sqrs,y-sqrs,size,depth+1)  # top left corner
+    drawSquare(x-sqrs,y+sqrs,size,depth+1)  # bottom left corner
+    drawSquare(x+sqrs,y-sqrs,size,depth+1)  # top right corner
+    drawSquare(x+sqrs,y+sqrs,size,depth+1)  # bottom right corner
 
 
 inputHandler()
+sizer = 250
+windowSz = 0
+for scl in scale:
+    windowSz += scl*sizer
+fig, ax = plt.subplots(figsize=(windowSz/100, windowSz/100), subplot_kw=dict(aspect="equal"))
+# Set axis limits to cover the entire plot area
+ax.set_xlim(0, windowSz)  
+ax.set_ylim(0, windowSz)  
 maxDepth = len(scale)
-drawSquare(0,0,500,0)
+drawSquare(0,0,sizer,0)
 plt.axis('equal')
+plt.axis('off')
+plt.tight_layout(pad=0)
 plt.show()
