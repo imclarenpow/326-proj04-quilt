@@ -26,8 +26,8 @@ def inputHandler():
                 if(syntaxHandler(line)):
                     lines.append(line)
                     print("Added!")
-                elif(line.upper()=="GUI"):
-                    gui()
+                #elif(line.upper()=="GUI"):
+                #    gui()
                 elif(line.upper()=="EXIT"):
                     break
         except EOFError:
@@ -56,6 +56,7 @@ def syntaxHandler(input_str):
     return True
 
 # method for controlling the gui input
+# UNUSED
 def gui():
     global scaleEntry, guiClosed
     root = tk.Tk()
@@ -121,6 +122,7 @@ def drawSquare(x, y, size, depth):
     drawSquare(x+sqrs,y-sqrs,size,depth+1)  # top right corner
     drawSquare(x+sqrs,y+sqrs,size,depth+1)  # bottom right corner
 
+# UNUSED
 def outputChoice():
     result = messagebox.askyesno("Save to File", "Do you want to save the output to a file?")
     if result:
@@ -135,9 +137,12 @@ def outputChoice():
     
 inputHandler()
 sizer = 250
-windowSz = 0
-for scl in scale:
-    windowSz += scl*sizer
+windowSz = sum(scale)*sizer
+if windowSz > 750:
+    sizer = 750 / sum(scale)  # Adjust sizer so that we're not spending forever calculating stuff
+    windowSz = sum(scale) * sizer
+else:
+    windowSz=750
 fig, ax = plt.subplots(figsize=(windowSz/100, windowSz/100), subplot_kw=dict(aspect="equal"))
 # Set axis limits to cover the entire plot area
 ax.set_xlim(0, windowSz)  
@@ -147,5 +152,5 @@ drawSquare(0,0,sizer,0)
 plt.axis('equal')
 plt.axis('off')
 plt.tight_layout(pad=0)
-outputChoice()
+#outputChoice()
 plt.show()
