@@ -1,7 +1,10 @@
 import sys
 import matplotlib.pyplot as plt
 import tkinter as tk
+from tkinter import messagebox
 from tkcolorpicker import askcolor
+import datetime
+import os
 lines = []
 # lists for storing values
 scale = []
@@ -118,7 +121,18 @@ def drawSquare(x, y, size, depth):
     drawSquare(x+sqrs,y-sqrs,size,depth+1)  # top right corner
     drawSquare(x+sqrs,y+sqrs,size,depth+1)  # bottom right corner
 
-
+def outputChoice():
+    result = messagebox.askyesno("Save to File", "Do you want to save the output to a file?")
+    if result:
+        timestamp = datetime.datetime.now().strftime("%H-%M-%S_%d-%m-%y")
+        filename = f"Quilt-{timestamp}.png"
+        outputdir = os.path.join(os.getcwd(), "QuiltOutput")
+        filepath = os.path.join(outputdir, filename)
+        print("Output will be saved to a file.")
+        plt.savefig(filepath, bbox_inches='tight', pad_inches=0)
+    else:
+        print("Output will not be saved to a file.")
+    
 inputHandler()
 sizer = 250
 windowSz = 0
@@ -133,4 +147,5 @@ drawSquare(0,0,sizer,0)
 plt.axis('equal')
 plt.axis('off')
 plt.tight_layout(pad=0)
+outputChoice()
 plt.show()

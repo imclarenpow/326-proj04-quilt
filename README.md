@@ -6,7 +6,8 @@
     - ```pip install matplotlib```
 - run ```py QuiltingBee.py``` in terminal.
 ## Notes on the Implementation
-- This version of Quilting Bee gives you the option to enter your wanted scale and RGB values in terminal or to use the 'GUI' command to get a better colour selector.
+- This version of Quilting Bee gives you the option to enter your wanted scale and RGB values in terminal or to use the 'GUI' command to get a better colour selector. THIS IS NOT NECESSARY TO USE.
+- The Program gives you the option to output the file to a png that is timestamped in a subdirectory.
 - Further more it utilises a recursive method to draw squares on the corners of all of the squares.
 ## Intro
 The YGQA(A-M) are considering a new design to welcome the Century of the Anchovy (a few years late).
