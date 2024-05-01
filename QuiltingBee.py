@@ -36,21 +36,22 @@ def syntaxHandler(input_str):
         return False
     return True
 
-def drawSquares(x, y, size, depth):
+def drawSquares(x, y, size, depth, squares):
     if depth >= maxDepth:
         return
     colors = np.array([rVal[depth], gVal[depth], bVal[depth]]) / 255.0
     sz = size * scale[depth]
     cx = x - sz / 2
     cy = y - sz / 2
-    ax.add_patch(plt.Rectangle((cx, cy), sz, sz, fill=True, color=colors))
+    squares[depth].append((cx, cy, sz, colors))
     sqrs = sz / 2
-    drawSquares(x - sqrs, y - sqrs, size, depth + 1)
-    drawSquares(x - sqrs, y + sqrs, size, depth + 1)
-    drawSquares(x + sqrs, y - sqrs, size, depth + 1)
-    drawSquares(x + sqrs, y + sqrs, size, depth + 1)
+    drawSquares(x - sqrs, y - sqrs, size, depth + 1, squares)
+    drawSquares(x - sqrs, y + sqrs, size, depth + 1, squares)
+    drawSquares(x + sqrs, y - sqrs, size, depth + 1, squares)
+    drawSquares(x + sqrs, y + sqrs, size, depth + 1, squares)
 
 if __name__ == "__main__":
+    
     start_time = time.time()
     scale, rVal, gVal, bVal = [], [], [], []
     lines = inputHandler()
@@ -65,7 +66,13 @@ if __name__ == "__main__":
     ax.set_xlim(0, windowSz)
     ax.set_ylim(0, windowSz)
     maxDepth = len(scale)
-    drawSquares(0, 0, sizer, 0)
+    squares = [[] for _ in range(maxDepth)]
+    drawSquares(0, 0, sizer, 0, squares)
+    # Iterate through the squares and draw them
+    for depth in range(maxDepth):
+        for square in squares[depth]:
+            cx, cy, sz, colors = square
+            ax.add_patch(plt.Rectangle((cx, cy), sz, sz, fill=True, color=colors))
     plt.axis('equal')
     plt.axis('off')
     plt.tight_layout(pad=0)
